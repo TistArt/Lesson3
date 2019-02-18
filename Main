@@ -1,0 +1,39 @@
+package Les3;
+
+import javax.swing.JOptionPane; 
+
+public class MainHW {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+Student S1=new Student(18,true,"ПЕТРЕНКО",1,"ЭКОНОМИЧЕСКИЙ");
+Student S2=new Student(19,false,"ИВАНЕНКО",2,"ФИЗИЧЕСКИЙ");
+Student S3=new Student(18,true,"КАРПЕНКО",1,"ЭКОНОМИЧЕСКИЙ");
+Student S4=new Student(17,true,"СИДОРЕНКО",1,"ЭКОНОМИЧЕСКИЙ");
+Student S5=new Student(20,false,"КИРИЕНКО",3,"ХИМИЧЕСКИЙ");
+Student S6=new Student(22,false,"СМОЛЕНКО",5,"ЭКОНОМИЧЕСКИЙ");
+Student S7=new Student(17,true,"КРИВЕНКО",1,"ИСТОРИЧЕСКИЙ");
+Student S8=new Student(17,true,"ПЕТРЕНКО",1,"ЭКОНОМИЧЕСКИЙ");
+Student S9=new Student(21,false,"МУСИЕНКО",4,"ЭКОНОМИЧЕСКИЙ");
+Student S10=new Student(18,true,"ДОРОНЕНКО",1,"ЭКОНОМИЧЕСКИЙ");
+Student S11=new Student(19,true,"ГРИГОРЕНКО",2,"ЭКОНОМИЧЕСКИЙ");
+
+Group Group1=new Group();
+Group1.addStudent(S1);
+Group1.addStudent(S2);
+Group1.addStudent(S3);
+Group1.addStudent(S4);
+Group1.addStudent(S5);
+Group1.addStudent(S6);
+Group1.addStudent(S7);
+Group1.addStudent(S8);
+Group1.addStudent(S9);
+Group1.addStudent(S10);
+Group1.addStudent(S11);
+Group1.sortStudent();
+System.out.println(Group1);	
+Group1.delStudent(String.valueOf(JOptionPane.showInputDialog("Input Surname for delete")));
+Group1.searchStudent(String.valueOf(JOptionPane.showInputDialog("Input Surname for search")));			
+}
+}
