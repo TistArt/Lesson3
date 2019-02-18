@@ -1,0 +1,115 @@
+package Les3;
+
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
+public class Group {
+Student group1 [] = new Student [10];
+int i=0;
+
+public Group(Student[] group1) {
+	super();
+	this.group1 = group1;
+}
+
+public Group() {
+	super();
+}
+
+public Student[] getGroup1() {
+	return group1;
+}
+
+public void setGroup1(Student[] group1) {
+	this.group1 = group1;
+}
+
+@Override
+public String toString() {
+	String ListGroup="";
+	for (i=0;i<group1.length;i++) {
+		if (group1 [i]!=null) {
+		ListGroup+=	group1 [i]+"\n";
+		}
+}
+return ListGroup;
+}
+
+public boolean addStudent (Student a) {
+	boolean add =false;
+	for (i=0;i<group1.length;i++) {
+		if (group1 [i]==null) {
+			group1 [i]=a;
+			break;
+		}
+	}
+	
+	try {
+		if (i==group1.length){
+		throw new MyException ();
+	}
+	else {
+		System.out.println("Добавлен " + a + "на место "+(i+1));
+		add=true;	
+	}	
+	} catch (MyException e) {
+		JOptionPane.showMessageDialog(null,e.getMessage());;
+	}
+return add;
+}
+
+public boolean delStudent (String DelSurname) {
+boolean del=false;
+	for (i=0;i<group1.length;i++) {
+	if (group1 [i]!=null) {
+		if (group1[i].getSurname()==DelSurname) {
+			del= true;
+			System.out.println("Студент "+ DelSurname + " удален из группы");
+			break;
+		}
+	}
+}
+	if (!del) {
+		System.out.println("Студент "+ DelSurname + " отсутствует в группе и не может быть из нее удален");
+	}
+	return del;
+}
+
+public boolean searchStudent (String SearchSurname) {
+boolean search=false;
+	for (i=0;i<group1.length;i++) {
+	if (group1 [i]!=null) {
+		if (group1[i].getSurname()==SearchSurname) {
+			search= true;
+			System.out.println("Студент "+ SearchSurname + " присутствует в группе");
+			break;
+		}
+	}
+}
+	if (!search) {
+		System.out.println("Студент "+ SearchSurname + " отсутствует в группе");
+	}
+	return search;
+}
+
+public boolean sortStudent () {
+	for (i=0;i<group1.length;i++) {
+		for (int j=i+1;j<group1.length;j++) {
+			if (group1 [i]!=null &&  group1 [j]!=null && group1[i].getSurname().compareTo(group1[j].getSurname())>0 ){
+			Student temp;
+			temp=group1 [i];
+			group1 [i]=group1 [j];
+			group1 [j]=temp;
+			}
+			if (group1 [i]!=null && group1 [j]==null ){
+				Student temp;
+				temp=group1 [i];
+				group1 [i]=null;
+				group1 [j]=temp;
+				}
+	}
+}
+return true;
+}
+	
+}
