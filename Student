@@ -1,0 +1,38 @@
+package Les3;
+
+public class Student extends Human{
+private int kurs;
+private String faculty;
+
+public Student(int age, boolean gender, String surname, int kurs, String faculty) {
+	super(age, gender, surname);
+	this.kurs = kurs;
+	this.faculty = faculty;
+}
+
+public Student() {
+	super();
+}
+
+public int getKurs() {
+	return kurs;
+}
+
+public void setKurs(int kurs) {
+	this.kurs = kurs;
+}
+
+public String getFaculty() {
+	return faculty;
+}
+
+public void setFaculty(String faculty) {
+	this.faculty = faculty;
+}
+
+@Override
+public String toString() {
+	return "Student [kurs=" + kurs + ", faculty=" + faculty + "]" + super.toString();
+}
+	
+}
