@@ -1,0 +1,13 @@
+package Les3;
+
+import javax.swing.JOptionPane;
+
+public class MyException extends Exception{
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return "Нельзя добавить студента! Группа сформирована!";
+	}
+
+}
