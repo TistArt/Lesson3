@@ -1,0 +1,13 @@
+package les3;
+
+import javax.swing.JOptionPane;
+
+public class ExceptionParam extends Exception{
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return "Input parametr from 1 to 4!";
+	}
+
+}
