@@ -1,11 +1,13 @@
-package Les3;
+package les3;
 
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-public class Group {
-Student group1 [] = new Student [10];
-int i=0;
+public class Group implements Voenkom{
+
+private Student group1 [] = new Student [2];
+private int i=0;
+
 
 public Group(Student[] group1) {
 	super();
@@ -26,21 +28,65 @@ public void setGroup1(Student[] group1) {
 
 @Override
 public String toString() {
-	String ListGroup="";
+	String listGroup="";
 	for (i=0;i<group1.length;i++) {
 		if (group1 [i]!=null) {
-		ListGroup+=	group1 [i]+"\n";
+		listGroup+=	group1 [i]+"\n";
 		}
 }
-return ListGroup;
+return listGroup;
 }
 
-public boolean addStudent (Student a) {
+public boolean addStudent () {
+	int age=0;
+	String surname="";
+	String genderInp;
+	boolean gender=true;
+	int kurs=0;
+	String faculty="";
 	boolean add =false;
 	for (i=0;i<group1.length;i++) {
 		if (group1 [i]==null) {
+			
+			
+			for(;;){
+			try {	
+			surname = String.valueOf(JOptionPane.showInputDialog("Input surname of student"));
+			age = Integer.valueOf(JOptionPane.showInputDialog("Input age of student"));
+			genderInp = String.valueOf(JOptionPane.showInputDialog("Input gender of student (M/F)"));
+			
+			if (genderInp.compareTo("M")>0 && genderInp.compareTo("F")>0) {
+				throw new ExceptionGender();
+			}
+			
+			kurs = Integer.valueOf(JOptionPane.showInputDialog("Input kurs of student"));
+			faculty = String.valueOf(JOptionPane.showInputDialog("Input faculty of student"));
+			
+			
+			
+			} catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null,"Error number format"); 
+				break;
+			}
+			
+			catch(NullPointerException e){
+				JOptionPane.showMessageDialog(null,"Cancel");
+				break;
+			}
+			
+			catch(ExceptionGender e){
+				JOptionPane.showMessageDialog(null,e.getMessage());
+				break;
+			}
+			
+			if (genderInp.compareTo("M")==0) gender=true; 
+			if (genderInp.compareTo("F")==0) gender=false; 
+			
+			Student a = new Student (age,gender,surname,kurs,faculty);
 			group1 [i]=a;
+			System.out.println("Добавлен " + a + "на место "+(i+1));
 			break;
+			}
 		}
 	}
 	
@@ -49,7 +95,7 @@ public boolean addStudent (Student a) {
 		throw new MyException ();
 	}
 	else {
-		System.out.println("Добавлен " + a + "на место "+(i+1));
+		
 		add=true;	
 	}	
 	} catch (MyException e) {
@@ -58,44 +104,86 @@ public boolean addStudent (Student a) {
 return add;
 }
 
-public boolean delStudent (String DelSurname) {
+public boolean delStudent (String delSurname) {
 boolean del=false;
 	for (i=0;i<group1.length;i++) {
 	if (group1 [i]!=null) {
-		if (group1[i].getSurname()==DelSurname) {
+		if (group1[i].getSurname().compareTo(delSurname)==0) {
+			group1[i]=null;
 			del= true;
-			System.out.println("Студент "+ DelSurname + " удален из группы");
+			System.out.println("Студент "+ delSurname + " удален из группы");
 			break;
 		}
 	}
 }
 	if (!del) {
-		System.out.println("Студент "+ DelSurname + " отсутствует в группе и не может быть из нее удален");
+		System.out.println("Студент "+ delSurname + " отсутствует в группе и не может быть из нее удален");
 	}
 	return del;
 }
 
-public boolean searchStudent (String SearchSurname) {
-boolean search=false;
+
+public Student searchStudent (String searchSurname) {
+Student search=null;
 	for (i=0;i<group1.length;i++) {
 	if (group1 [i]!=null) {
-		if (group1[i].getSurname()==SearchSurname) {
-			search= true;
-			System.out.println("Студент "+ SearchSurname + " присутствует в группе");
+		if (group1[i].getSurname().compareTo(searchSurname)==0) {
+			search= group1[i];
+			System.out.println("Студент "+ searchSurname + " присутствует в группе");
 			break;
 		}
 	}
 }
-	if (!search) {
-		System.out.println("Студент "+ SearchSurname + " отсутствует в группе");
+	if (search==null) {
+		System.out.println("Студент "+ searchSurname + " отсутствует в группе");
 	}
 	return search;
 }
 
 public boolean sortStudent () {
+	int param=0;
+	for(;;){
+		try {	
+		param = Integer.valueOf(JOptionPane.showInputDialog("Input parameter for sort(1-Surname,2-age,3-kurs,4-faculty"));
+		
+		if (param<1 && param>4) {
+			throw new ExceptionParam();
+		}
+		
+		} catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null,"Error number format"); 
+			break;
+		}
+		
+		catch(NullPointerException e){
+			JOptionPane.showMessageDialog(null,"Cancel");
+			break;
+		}
+		
+		catch(ExceptionParam e){
+			JOptionPane.showMessageDialog(null,e.getMessage());
+			break;
+		}
+		break;
+	}
 	for (i=0;i<group1.length;i++) {
 		for (int j=i+1;j<group1.length;j++) {
-			if (group1 [i]!=null &&  group1 [j]!=null && group1[i].getSurname().compareTo(group1[j].getSurname())>0 ){
+			boolean paramSearch=true;
+			switch (param) {
+			case 1:{
+				paramSearch=group1[i]!=null &&  group1[j]!=null && group1[i].getSurname().compareTo(group1[j].getSurname())>0;
+			}
+			case 2:{
+				paramSearch=group1[i]!=null &&  group1[j]!=null && group1[i].getAge()<group1[j].getAge();
+			}
+			case 3:{
+				paramSearch=group1[i]!=null &&  group1[j]!=null && group1[i].getKurs()<group1[j].getKurs();
+			}
+			case 4:{
+				paramSearch=group1[i]!=null &&  group1[j]!=null && group1[i].getFaculty().compareTo(group1[j].getFaculty())>0;
+			}
+			}
+			if (paramSearch){
 			Student temp;
 			temp=group1 [i];
 			group1 [i]=group1 [j];
@@ -111,5 +199,30 @@ public boolean sortStudent () {
 }
 return true;
 }
+
+@Override
+public Student[] getToArmy() {
+	int num=0;
+	for (i=0;i<group1.length;i++) {
+		if (group1[i].isGender()==true && group1[i].getAge()>17) {
+			num++;
+		}
+	}
 	
+	Student groupToArmy [] = new Student [num];
+	num=0;
+	for (i=0;i<group1.length;i++) {
+		if (group1[i].isGender()==true && group1[i].getAge()>17) {
+			groupToArmy [num]=group1[i];
+			num++;
+		}
+	}
+	
+	
+	return groupToArmy;
 }
+
+
+}
+
+
