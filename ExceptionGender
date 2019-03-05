@@ -1,0 +1,13 @@
+package les3;
+
+import javax.swing.JOptionPane;
+
+public class ExceptionGender extends Exception{
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return "Input M or F!";
+	}
+
+}
