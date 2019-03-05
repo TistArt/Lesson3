@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class Group implements Voenkom{
 
-private Student group1 [] = new Student [2];
+private Student group1 [] = new Student [10];
 private int i=0;
 
 
