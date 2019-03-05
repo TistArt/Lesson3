@@ -1,0 +1,6 @@
+package les3;
+
+public interface Voenkom {
+
+Student[]getToArmy();	
+}
